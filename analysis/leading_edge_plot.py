@@ -54,8 +54,11 @@ def plot_2d(ax, charge, time, title, set_xlabel=True):
     ax.set_xlim(0, 2000)
     ax.set_ylim(0, 2)
     ax.tick_params(axis="both", which="major", labelsize=20)
+    ax.minorticks_on()
+    ax.tick_params(axis="both", which="minor", length=4, width=1)
     ax.grid(True, alpha=0.3)
-    ax.xaxis.set_major_locator(plt.MaxNLocator(4))
+    ax.xaxis.set_major_locator(plt.MaxNLocator(6))
+    ax.yaxis.set_major_locator(plt.MaxNLocator(6))
     ax.set_title(title, fontsize=20)
     return image
 
@@ -145,6 +148,13 @@ if __name__ == "__main__":
     colorbar = fig.colorbar(image2, cax=cax)
     colorbar.set_label(r"Normalized frequency (per 20 $e^{-}$ x 25 ps)", size=18)
     colorbar.ax.tick_params(labelsize=20, width=1.5, length=6)
+    ax1.yaxis.set_major_locator(plt.MaxNLocator(10))
+    ax2.yaxis.set_major_locator(plt.MaxNLocator(10))
+    ax1.tick_params(axis="x", which="both", bottom=False, top=False, labelbottom=False)
+    ax2.xaxis.set_major_locator(plt.MaxNLocator(4))
+    ax1.minorticks_off()
+    ax2.minorticks_off()
+
 
     plots_dir = os.path.join(pdata, "plots")
     os.makedirs(plots_dir, exist_ok=True)
@@ -157,7 +167,12 @@ if __name__ == "__main__":
     image = plot_2d(ax, charge_all, time_all, "All cluster sizes")
     colorbar2 = fig2.colorbar(image, ax=ax)
     colorbar2.set_label(r"Normalized frequency (per 20 $e^{-}$ x 25 ps)", size=18)
-    colorbar2.ax.tick_params(labelsize=20, width=1.5, length=6)
+    colorbar2.ax.tick_params(labelsize=20, width=1.5, length=6 )
+    ax.yaxis.set_major_locator(plt.MaxNLocator(10))
+    ax.xaxis.set_major_locator(plt.MaxNLocator(4))
+    ax.minorticks_off()
+
+    
     fig2.text(
         0.01,
         0.5,
